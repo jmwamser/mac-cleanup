@@ -21,11 +21,11 @@ Cleanup script for OSX
 sh -c "$(curl -fsSL http://git.salinavortex.com/jwamser/MacCleanup/blob/high-sierra-jwamser/installer.sh)"
 ```
 
-**use wget**
+<!-- **use wget**
 
 ```bash
 sh -c "$(wget http://git.salinavortex.com/jwamser/MacCleanup/blob/high-sierra-jwamser/installer.sh -O -)"
-```
+``` -->
 
 <!-- ## Step by step Install:
 Download:
@@ -36,7 +36,6 @@ Make it executable:
 
 Move to make it globally usable:
 `sudo mv cleanup /usr/local/bin/cleanup` -->
-
 
 ## Uninstall
 
