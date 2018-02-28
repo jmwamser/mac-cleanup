@@ -18,13 +18,13 @@ Cleanup script for OSX
 **use curl**
 
 ```bash
-sh -c "$(curl -fsSL http://git.salinavortex.com/jwamser/MacCleanup/blob/high-sierra-jwamser/installer.sh)"
+sh -c "$(curl -fsSL http://git.salinavortex.com/jwamser/MacCleanup/raw/high-sierra-jwamser/installer.sh)"
 ```
 
 <!-- **use wget**
 
 ```bash
-sh -c "$(wget http://git.salinavortex.com/jwamser/MacCleanup/blob/high-sierra-jwamser/installer.sh -O -)"
+sh -c "$(wget http://git.salinavortex.com/jwamser/MacCleanup/raw/high-sierra-jwamser/installer.sh -O -)"
 ``` -->
 
 <!-- ## Step by step Install:
@@ -40,11 +40,11 @@ Move to make it globally usable:
 ## Uninstall
 
 ```bash
-curl -fsSL "http://git.salinavortex.com/jwamser/MacCleanup/blob/high-sierra-jwamser/installer.sh" | bash -s uninstall
+curl -fsSL "http://git.salinavortex.com/jwamser/MacCleanup/raw/high-sierra-jwamser/installer.sh" | bash -s uninstall
 ```
 
 ## Update
 
 ```bash
-curl -fsSL "http://git.salinavortex.com/jwamser/MacCleanup/blob/high-sierra-jwamser/installer.sh" | bash -s update
+curl -fsSL "http://git.salinavortex.com/jwamser/MacCleanup/raw/high-sierra-jwamser/installer.sh" | bash -s update
 ```
