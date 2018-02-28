@@ -37,6 +37,13 @@ Make it executable:
 Move to make it globally usable:
 `sudo mv cleanup /usr/local/bin/cleanup` -->
 
+## Run Script:
+
+```
+sudo cleanup
+```
+This will then ask you to enter your computers password to run the script. The script will fail if you do not add `sudo`.
+
 ## Uninstall
 
 ```bash
