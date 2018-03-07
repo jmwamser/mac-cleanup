@@ -20,6 +20,7 @@ case $1 in
 		exit
         ;;
     update)
+        uninstall
         install
         exit
         ;;

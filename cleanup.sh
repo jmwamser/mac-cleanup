@@ -115,15 +115,47 @@ CleanRuby() {
 }
 
 # Confirm Cleanup Docker
-CleanDocker() {
+askCleanDocker() {
     read -p "Cleanup Docker? [Y/n] " -n 1 -r
     echo    # (optional) move to a new line
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        echo 'Cleanup Docker <none> images'
-        docker rmi -f $(docker images -q --filter 'dangling=true')
+        CleanDocker
     fi
-    
+}
+# Cleanup Docker commands
+CleanDocker(){
+    echo "\t Docker Volumes"
+    # see: https://github.com/chadoe/docker-cleanup-volumes
+    docker volume rm $(docker volume ls -qf dangling=true)
+    docker volume ls -qf dangling=true | xargs -r docker volume rm
+
+    #Networks
+    echo "\t Docker Networks"
+    docker network ls
+    docker network ls | grep "bridge"
+    docker network rm $(docker network ls | grep "bridge" | awk '/ / { print $1 }')
+
+    #Images
+    # see: http://stackoverflow.com/questions/32723111/how-to-remove-old-and-unused-docker-images
+    echo "\t Docker Images - <dangling>"
+    docker images
+    docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+    #        echo 'Cleanup Docker <none> images'
+    #        docker rmi -f $(docker images -q --filter 'dangling=true')
+    echo "\t Docker Images - <none>"
+    docker images | grep "none"
+    docker rmi $(docker images | grep "none" | awk '/ / { print $3 }')
+
+    #Containers
+    # see: http://stackoverflow.com/questions/32723111/how-to-remove-old-and-unused-docker-images
+    echo "\t Docker Containers"
+    docker ps
+    docker ps -a
+    docker rm $(docker ps -qa --no-trunc --filter "status=exited")
+
+    #Resize disk space for docker vm
+    #docker-machine create --driver virtualbox --virtualbox-disk-size "40000" default # I DON'T NEED THIS ONE
 }
 
 # Confirm Purge inactive memory
@@ -167,7 +199,7 @@ confirmCleanUp() {
     # Confirm Cleanup old gems
     CleanRuby
     # Confirm Cleanup Docker
-    CleanDocker
+    askCleanDocker
     # Confirm Purge inactive memory
     PurgeMemoryinactive
 }
@@ -206,8 +238,8 @@ CleanUp() {
     echo 'Cleanup any old versions of gems'
     gem cleanup &>/dev/null
 
-    echo 'Cleanup Docker <none> images'
-    docker rmi -f $(docker images -q --filter 'dangling=true')
+    echo 'Cleanup Docker'
+    CleanDocker
 
     echo 'Purge inactive memory...'
     sudo purge
